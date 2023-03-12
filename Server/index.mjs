@@ -1,30 +1,52 @@
 import express from "express"
 const app = express()
-const port = 3000
+import mongoose from "mongoose";
 import path from 'path';
 import cors from "cors"
-
+import dotenv from "dotenv"
+// importing Schema's 
+import PostModel from "./Models/post schema.mjs"
+const port = 3000
+dotenv.config()
 app.use(cors())
+app.use(express.json())
 
-//This one is getting simple html file 
-// const __dirname = path.resolve()
-// app.use('/', express.static(path.join(__dirname, '/client')))
 
-//This one is getting react build File  
+// Connecting Database
+let connect = mongoose.connect(process.env.Database).then(() => { console.log("DB Connected"); })
+  .catch((connect) => { console.log("Warning DB Is Not Connected Error :", connect.message); })
+
+
+
+// All Request
 const __dirname = path.resolve()
 app.use('/', express.static(path.join(__dirname, '../Client/anopost/dist/')))
 
 
+app.post('/post', async (req, res) => {
+  const { name, post } = req.body
+  if (!name || !post) {
+    res.status(401).send({ message: "Something is missing " })
+    return;
+  }
+  let savePost = await PostModel.create({
+    name: name,
+    post: post
+  });
+  if (!savePost) {
+    res.status(400).send({ message: "failed to Post data" })
+    return;
+  }
+  res.status(200).send({ message: "Data Posted" })
+
+})
+
 
 
 app.get('/contact', (req, res) => {
+
   res.send('Hello World!')
 })
-
-app.get('/first', (req, res) => {
-  res.send({ data: 'abc' })
-})
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
