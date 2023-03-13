@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 function Content() {
     const [post, setPost] = useState([]);
     const FetchPosts = async () => {
-        let response = await axios.get("http://localhost:3000/getPost")
+        let response = await axios.get("http://localhost:3000/getPost");
         try {
             console.log(response.data);
             setPost(response.data)

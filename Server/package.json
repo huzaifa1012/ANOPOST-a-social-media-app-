@@ -9,6 +9,7 @@
   "author": "huzaifa usman",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-inzi": "^1.0.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
