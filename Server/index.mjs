@@ -7,7 +7,7 @@ import dotenv from "dotenv"
 import { stringToHash, varifyHash, validateHash } from "bcrypt-inzi"
 
 app.use(cors())
-// importing Schema's 
+// Models  
 import PostModel from "./Models/post schema.mjs"
 import UserModel from "./Models/auth schema.mjs"
 
@@ -16,9 +16,10 @@ dotenv.config()
 app.use(express.json())
 
 
-// Connecting Database
+// DB Conncection
 let connect = mongoose.connect(process.env.Database).then(() => { console.log("DB Connected"); })
   .catch((connect) => { console.log("Warning DB Is Not Connected Error :", connect.message); })
+// 
 
 // All Request
 const __dirname = path.resolve()
@@ -62,14 +63,12 @@ app.post('/signin', async (req, res) => {
   }
   try {
     let userRegistered = await UserModel.findOne({ email: email });
-
     // Check Availablity (email checking from DB)
     if (!userRegistered) {
       res.status(400).send({ message: "Wrong credential" })
       return;
     }
     // 
-
     // Password checking
     let PasswordMatch = await varifyHash(password, userRegistered.password)
     console.log("Matched or not", PasswordMatch)
@@ -80,7 +79,6 @@ app.post('/signin', async (req, res) => {
     res.status(200).send({ message: "Successfully Signed in " })
   } catch (error) {
     res.status(400).send({ message: "Error! (catch has run)" })
-
   }
 })
 
