@@ -36,7 +36,6 @@ app.post('/register', async (req, res) => {
   try {
     // Hashing password
     let hashedPassword = await stringToHash(password)
-    console.log("hashed", hashedPassword)
     let registerUser = await UserModel.create({
       name: name,
       email: email,
@@ -49,6 +48,38 @@ app.post('/register', async (req, res) => {
     res.status(200).send({ message: "Register Successful" })
 
   } catch (error) {
+    res.status(400).send({ message: "Register Unsuccessful" })
+
+  }
+})
+
+
+app.post('/signin', async (req, res) => {
+  const { email, password } = req.body
+  if (!email || !password) {
+    res.status(401).send({ message: "Some field is missing " })
+    return;
+  }
+  try {
+    let userRegistered = await UserModel.findOne({ email: email });
+
+    // Check Availablity (email checking from DB)
+    if (!userRegistered) {
+      res.status(400).send({ message: "Wrong credential" })
+      return;
+    }
+    // 
+
+    // Password checking
+    let PasswordMatch = await varifyHash(password, userRegistered.password)
+    console.log("Matched or not", PasswordMatch)
+    if (!PasswordMatch) {
+      res.status(400).send({ message: "wrong crendetial" })
+      return;
+    }
+    res.status(200).send({ message: "Successfully Signed in " })
+  } catch (error) {
+    res.status(400).send({ message: "Error! (catch has run)" })
 
   }
 })
