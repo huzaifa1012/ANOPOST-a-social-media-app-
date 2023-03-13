@@ -38,16 +38,14 @@ app.post('/post', async (req, res) => {
     return;
   }
   res.status(200).send({ message: "Data Posted" })
-
 })
 
-
-
-app.get('/contact', (req, res) => {
-
-  res.send('Hello World!')
+app.get('/getPost', async (req, res) => {
+  let Data = await PostModel.find({})
+  console.log(Data)
+  res.status(200).send(Data)
 })
-
+// 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
