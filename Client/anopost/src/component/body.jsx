@@ -10,12 +10,8 @@ import { useEffect, useState } from 'react';
 
 function Content() {
     const [post, setPost] = useState([]);
-
-
     const FetchPosts = async () => {
         let response = await axios.get("http://localhost:3000/getPost")
-        // console.log(response.data)
-
         try {
             console.log(response.data);
             setPost(response.data)
@@ -45,17 +41,27 @@ function Content() {
 }
 
 function Post() {
+    const [postVal, setPostVal] = useState('');
+
+
+    const postData = async () => {
+        console.log(postVal)
+        let post = await axios.post('http://localhost:3000/post', {
+            name: prompt("Your name"),
+            post: postVal
+        })
+    }
     return (
         <>
-
             <FloatingLabel controlId="floatingTextarea2" label="What's in your mind">
                 <Form.Control
                     as="textarea"
+                    onChange={(value) => { setPostVal(value.target.value) }}
                     placeholder="Leave a comment here"
                     style={{ height: '100px', margin: '10px 0px' }}
                 />
             </FloatingLabel>
-            <Button variant="primary">Post now</Button>{' '}
+            <Button variant="primary" onClick={() => { postData() }}>Post now</Button>{' '}
         </>
     );
 }
@@ -66,7 +72,7 @@ function Hero() {
         <Container>
             <Row>
                 {/* Left Start */}
-                <Col><h2>Hello it's Left</h2></Col>
+                <Col><h2>L</h2></Col>
                 {/* Center Start */}
                 <Col xs={6}>
                     <h2>Post Something</h2>
@@ -74,7 +80,7 @@ function Hero() {
                     <Content />
                 </Col>
                 {/* Right Start */}
-                <Col><h2> Hello it's Right </h2></Col>
+                <Col><h2> R </h2></Col>
             </Row>
         </Container>
     );
