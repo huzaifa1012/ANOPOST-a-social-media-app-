@@ -1,21 +1,14 @@
 
 import './App.css'
 import axios from "axios"
-import MainNavbar from './component/navbar'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Hero, Post} from './component/body';
+import { Hero, Post } from './component/main page/body';
+import { BrowserRouter } from 'react-router-dom';
+import AuthPage from './component/AuthPage.jsx';
+import MyRoutes from './routing/routes';
 function App() {
   return (
-    <div className="App">
-      <MainNavbar />
-      <Hero />
-      <button onClick={async () => {
-        let data = await axios.get("http://localhost:3000/first")
-        console.log(data.data)
-      }}>
-        Click To Get Data
-      </button>
-    </div>
+    <MyRoutes />
   )
 }
 
