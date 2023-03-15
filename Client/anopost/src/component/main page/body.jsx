@@ -33,7 +33,7 @@ function Content() {
                 post.map((item) => (
                     <div className="carwrap" key={item._id} style={{ margin: '10px 0px' }}>
 
-                        <div className="card" style={{ padding: '10px' }}>
+                        <div className="card  ml-60" style={{ padding: '10px' }}>
                             <h5>{item.name}</h5>
 
                             <p>{item.post}</p>
@@ -77,7 +77,7 @@ function Hero() {
         <Container>
             <Row>
                 {/* Left Start */}
-                <Col><h2>L</h2></Col>
+                <Col className='main-left'><h2>L</h2></Col>
                 {/* Center Start */}
                 <Col xs={6}>
                     <h2>Post Something</h2>
@@ -85,10 +85,11 @@ function Hero() {
                     <Content />
                 </Col>
                 {/* Right Start */}
-                <Col><h2> R </h2></Col>
+                <Col className='main-right'><h2> R </h2></Col>
             </Row>
         </Container>
     );
 }
 
 export { Hero, Post, Content };
+

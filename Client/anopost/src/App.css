@@ -1,0 +1,13 @@
+@media (max-width:768px) {
+    .col-6 {
+        width: 100% !important;
+    }
+    .main-left {
+        display: none;
+        color: red;
+    }
+
+    .main-right {
+        display: none;
+    }
+}
