@@ -7,6 +7,8 @@ import dotenv from "dotenv"
 import { stringToHash, varifyHash, validateHash } from "bcrypt-inzi"
 
 app.use(cors())
+
+
 // Models  
 import PostModel from "./Models/post schema.mjs"
 import UserModel from "./Models/auth schema.mjs"
@@ -76,10 +78,11 @@ app.post('/signin', async (req, res) => {
       res.status(400).send({ message: "wrong crendetial" })
       return;
     }
-    res.status(200).send({ message: "Successfully Signed in " })
+    res.status(200).send({ message: "Successfully Signed in ", data: userRegistered })
   } catch (error) {
     res.status(400).send({ message: "Error! (catch has run)" })
   }
+
 })
 
 app.post('/post', async (req, res) => {
@@ -90,7 +93,8 @@ app.post('/post', async (req, res) => {
   }
   let savePost = await PostModel.create({
     name: name,
-    post: post
+    post: post,
+    postedOn: new Date().getDate()
   });
   if (!savePost) {
     res.status(400).send({ message: "failed to Post data" })

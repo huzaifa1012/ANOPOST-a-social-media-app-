@@ -13,15 +13,7 @@ export const Signup = () => {
     let dispatch = useDispatch()
     const isV = (event) => {
         event.preventDefault()
-        try {
-            
-            dispatch(
-                auth()
-            )
-
-        } catch (error) {
-            
-        }
+        dispatch(auth())
     }
     const navigate = useNavigate()
     const [registerName, setRegisterName] = useState("");
@@ -83,7 +75,15 @@ export const Signin = () => {
                 email: signinEmail,
                 password: signinPassword
             })
-            console.log("Signed in Successfull ");
+            console.log("Signed in Successfull ", signinUser.data.data._id);
+            let UniqueId = await signinUser.data.data._id + "abrakatabra"
+            if (true) {
+                localStorage.removeItem('Id');
+                localStorage.removeItem('name');
+
+                localStorage.setItem("Id", UniqueId)
+                localStorage.setItem("name", signinUser.data.data.name)
+            }
             navigate('/anopost')
 
         } catch (error) {

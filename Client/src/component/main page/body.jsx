@@ -32,6 +32,7 @@ function Content() {
                             <h5>{item.name}</h5>
 
                             <p>{item.post}</p>
+                            <p>{item.postedOn}</p>
                         </div>
                     </div>
                 ))
@@ -47,7 +48,7 @@ function Post() {
     const postData = async () => {
         console.log(postVal)
         let post = await axios.post('http://localhost:3000/post', {
-            name: prompt("Your name"),
+            name: localStorage.getItem('name'),
             post: postVal
         })
     }
@@ -65,7 +66,6 @@ function Post() {
         </>
     );
 }
-
 
 function Hero() {
     return (
