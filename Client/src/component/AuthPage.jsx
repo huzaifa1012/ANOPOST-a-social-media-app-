@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 
 import Button from 'react-bootstrap/Button';
@@ -7,7 +8,21 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import { auth } from "../store/slices/userSlice"
 export const Signup = () => {
+    let dispatch = useDispatch()
+    const isV = (event) => {
+        event.preventDefault()
+        try {
+            
+            dispatch(
+                auth()
+            )
+
+        } catch (error) {
+            
+        }
+    }
     const navigate = useNavigate()
     const [registerName, setRegisterName] = useState("");
     const [registerEmail, setRegisterEmail] = useState("");
@@ -32,6 +47,7 @@ export const Signup = () => {
 
         <Form style={{ width: '300px', margin: '0px auto' }}>
             <h2>Register</h2>
+            <button onClick={() => { isV() }}>Register</button>
             <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Control onChange={(event) => { setRegisterName(event.target.value) }} type="name" placeholder="Name" autoComplete='name' />
             </Form.Group>

@@ -1,8 +1,3 @@
-// Import Them
-{/* <MainNavbar />
-      <Hero /> */}
-
-
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,8 +5,8 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from "axios"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
-
 
 function Content() {
     const [post, setPost] = useState([]);
