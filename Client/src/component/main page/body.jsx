@@ -7,14 +7,19 @@ import Button from 'react-bootstrap/Button';
 import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
-
+import { useDispatch } from 'react-redux';
+import { userData } from '../../store/slices/userSlice';
+import { readData } from '../../store/slices/userSlice';
 function Content() {
+    let dispatch = useDispatch()
+
     const [post, setPost] = useState([]);
     const FetchPosts = async () => {
         let response = await axios.get("http://localhost:3000/getPost");
         try {
-            console.log(response.data);
             setPost(response.data)
+            dispatch(readData(response.data))
+
         } catch (error) {
             console.log(error);
         }

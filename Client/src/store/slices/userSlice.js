@@ -10,9 +10,15 @@ let userSlice = createSlice({
     reducers: {
         auth: (state, action) => {
             console.log("it's State :", state)
+        },
+        userData: (state, action) => {
+            console.log("it's userData :", state, "hi", action.payload)
+        },
+        readData: (state, action) => {
+            // console.log("it's userData :", state, "hi", action.payload)
         }
     }
 })
 
-export const { auth } = userSlice.actions
+export const { auth, userData, readData } = userSlice.actions
 export { userSlice };

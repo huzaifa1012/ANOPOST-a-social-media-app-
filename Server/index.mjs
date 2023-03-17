@@ -94,7 +94,7 @@ app.post('/post', async (req, res) => {
   let savePost = await PostModel.create({
     name: name,
     post: post,
-    postedOn: new Date().getDate()
+    postedOn: new Date().getTime()
   });
   if (!savePost) {
     res.status(400).send({ message: "failed to Post data" })
@@ -104,7 +104,7 @@ app.post('/post', async (req, res) => {
 })
 
 app.get('/getPost', async (req, res) => {
-  let Data = await PostModel.find({})
+  let Data = await PostModel.find({}).limit(5).sort({_id: -1})
   console.log(Data)
   res.status(200).send(Data)
 })

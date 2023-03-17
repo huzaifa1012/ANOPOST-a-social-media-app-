@@ -2,23 +2,26 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 
-
+import { userData } from '../store/slices/userSlice';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
 import { auth } from "../store/slices/userSlice"
+
 export const Signup = () => {
-    let dispatch = useDispatch()
-    const isV = (event) => {
-        event.preventDefault()
-        dispatch(auth())
-    }
-    const navigate = useNavigate()
+    // let dispatch = useDispatch()
+    const [myuserData, setUserData] = useState("");
     const [registerName, setRegisterName] = useState("");
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
+    const isV = (event) => {
+        event.preventDefault()
+        dispatch(userData(
+            { myuserData }
+        ))
+    }
+    const navigate = useNavigate()
     const register = async (event) => {
         event.preventDefault()
         try {
@@ -27,6 +30,7 @@ export const Signup = () => {
                 email: registerEmail,
                 password: registerPassword
             })
+            setUserData(registerUser)
             console.log("Registered Successfull ");
             navigate('/anopost')
 
@@ -39,7 +43,7 @@ export const Signup = () => {
 
         <Form style={{ width: '300px', margin: '0px auto' }}>
             <h2>Register</h2>
-            <button onClick={() => { isV() }}>Register</button>
+            <button onClick={isV}>Register</button>
             <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Control onChange={(event) => { setRegisterName(event.target.value) }} type="name" placeholder="Name" autoComplete='name' />
             </Form.Group>
@@ -80,7 +84,6 @@ export const Signin = () => {
             if (true) {
                 localStorage.removeItem('Id');
                 localStorage.removeItem('name');
-
                 localStorage.setItem("Id", UniqueId)
                 localStorage.setItem("name", signinUser.data.data.name)
             }
